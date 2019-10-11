@@ -2,7 +2,7 @@ const merge = require('webpack-merge');
 const common = require('./webpack.config.js');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const host = '192.168.5.25'
+const host = '192.168.5.51'
 
 module.exports = merge(common, {
   mode: 'development',
@@ -12,25 +12,24 @@ module.exports = merge(common, {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
-    public: 'http://' + host + ':8083' + '/?redirectUrl=/static/portal/index.do',
+    public: 'http://' + host + ':8083',
     host: host,
     port: '8083',
     publicPath: '/',
     hot: true,
     proxy: {
-      '/': {
-        target: 'http://192.168.1.10080:10022',
+      '/test': {
+        target: 'http://127.0.0.1:3000'
       }
     }
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new CopyWebpackPlugin([
-      { from: 'static/resources/js/base/*' },
-      { from: 'static/resources/themes/css/*' },
-      { from: 'static/resources/themes/font/*' },
-      { from: 'static/resources/themes/imgs/*' },
-      { from: 'static/resources/themes/js/*' }
+      { from: 'static/js/*' },
+      { from: 'static/css/*' },
+      { from: 'static/font/*' },
+      { from: 'static/imgs/*' }
     ])
   ]
 });

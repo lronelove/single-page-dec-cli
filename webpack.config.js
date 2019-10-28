@@ -4,6 +4,10 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 module.exports = {
   mode: 'development',
+  output: {
+    path: __dirname + '/dist/',
+    publicPath: '/static/'
+  },
   module: {
     rules: [
       {
